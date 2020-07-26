@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="error" monitorInterval="60">
+    <Properties>
+        <Property name="defaultPattern">%d [%-5p] [%t] [%c{1}]: %m%n</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="server" fileName="/var/log/mentor/wildfly.log" append="true"
+                     filePattern="/var/log/mentor/archive/wildfly.%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout>
+                <pattern>${defaultPattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10">
+                <Delete basePath="/var/log/mentor/archive/" maxDepth="2">
+                    <IfAny>
+                        <IfFileName glob="wildfly*.gz" />
+                        <IfFileName glob="wildfly*.log" />
+                    </IfAny>
+                    <IfAccumulatedFileCount exceeds="10" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="server"/>            
+        </Root>
+        <logger name="com.schema.modules.ranServer.server.infra.fecluster" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="com.arjuna" level="warn" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.apache.tomcat.util.modeler" level="warn" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.apache.ftpserver" level="warn" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.jboss.as.config" level="debug" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="sun.rmi" level="warn" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="jacorb" level="warn" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="jacorb.config" level="error" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.hibernate" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.hibernate.type" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.hibernate.tool.hbm2ddl" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.hibernate.SQL" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.jboss.jca" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.springframework" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.apache.commons.digester.Digester" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.jboss.ejb.client" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="com.schema.modules.serverinfra.server.MethodLoggerInterceptor" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="com.schema.modules.ranServer.server.dataDescriptor.DataDescriptorStatusManagerImpl" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.apache.http" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.jboss.security" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.jboss.resteasy" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="org.quartz" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="com.schema.modules.serverinfraapi.dataIntegration.FileTransferChannel" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+        <logger name="com.schema.infra.tasks.processes" level="info" additivity="false">            
+            <AppenderRef ref="server"/>
+        </logger>
+    </Loggers>
+</Configuration>
